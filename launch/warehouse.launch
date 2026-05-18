@@ -6,8 +6,8 @@
   <!-- Load warehouse parameters -->  
   <include file="$(find baxter_moveit_config)/launch/warehouse_settings.launch" />
 
-  <!-- Run the DB server -->
-  <node name="$(anon mongo_wrapper_ros)" cwd="ROS_HOME" type="mongo_wrapper_ros.py" pkg="warehouse_ros">
+  <!-- Run the DB server (use warehouse_ros_mongo package on Melodic) -->
+  <node name="$(anon mongo_wrapper_ros)" cwd="ROS_HOME" type="mongo_wrapper_ros.py" pkg="warehouse_ros_mongo">
     <param name="overwrite" value="false"/>
     <param name="database_path" value="$(arg moveit_warehouse_database_path)" />
   </node>
