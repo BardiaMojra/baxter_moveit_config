@@ -15,8 +15,11 @@
   <arg name="fake_execution" default="false"/>
   <arg name="joint_states_topic" default="/robot/joint_states"/>
 
+  <!-- Use Pilz as the planning plugin so LIN/PTP/CIRC sequence planning works.
+       compute_cartesian_path() (used for per-waypoint Cartesian fallback) is a
+       separate service and is NOT affected by the planning plugin choice. -->
   <include ns="move_group" file="$(find baxter_moveit_config)/launch/planning_pipeline.launch">
-    <arg name="pipeline" value="ompl" />
+    <arg name="pipeline" value="pilz_industrial_motion_planner" />
   </include>
 
   <include ns="move_group" file="$(find baxter_moveit_config)/launch/trajectory_execution.launch" if="$(arg allow_trajectory_execution)">
@@ -55,6 +58,8 @@
 				      move_group/MoveGroupQueryPlannersService
 				      move_group/MoveGroupStateValidationService
 				      move_group/MoveGroupGetPlanningSceneService
+				      pilz_industrial_motion_planner/MoveGroupSequenceAction
+				      pilz_industrial_motion_planner/MoveGroupSequenceService
 				      " />
 
     <!-- Publish the planning scene of the physical robot so that rviz plugin can know actual robot -->

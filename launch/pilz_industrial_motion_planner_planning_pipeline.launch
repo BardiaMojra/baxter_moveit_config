@@ -1,0 +1,18 @@
+<launch>
+
+  <!-- Pilz Industrial Motion Planner pipeline for Baxter MoveIt -->
+
+  <!-- No request adapters needed: Pilz handles time parameterization internally -->
+  <arg name="planning_adapters" default="" />
+
+  <param name="planning_plugin"         value="pilz_industrial_motion_planner::CommandPlanner" />
+  <param name="request_adapters"        value="$(arg planning_adapters)" />
+  <param name="default_planner_config"  value="PTP" />
+
+  <!-- Kinematics solver (required by Pilz for IK) -->
+  <rosparam command="load" file="$(find baxter_moveit_config)/config/kinematics.yaml"/>
+
+  <!-- Cartesian velocity / acceleration limits used by LIN and CIRC planners -->
+  <rosparam command="load" file="$(find baxter_moveit_config)/config/pilz_cartesian_limits.yaml"/>
+
+</launch>
