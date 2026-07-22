@@ -1,10 +1,16 @@
 <launch>
- # The planning and execution components of MoveIt! configured to 
+ # Load the URDF/SRDF (robot_description, robot_description_semantic) so
+ # move_group has the planning groups (e.g. left_arm) defined.
+ <include file="$(find baxter_moveit_config)/launch/planning_context.launch" />
+ # The planning and execution components of MoveIt! configured to
  # publish the current configuration of the robot (simulated or real)
  # and the current state of the world as seen by the planner
  <include file="$(find baxter_moveit_config)/launch/move_group.launch">
   <arg name="publish_monitored_planning_scene" value="true" />
  </include>
- # The visualization component of MoveIt!
- <include file="$(find baxter_moveit_config)/launch/moveit_rviz.launch" />
+ # The visualization component of MoveIt!  config:=true so the RobotModel/
+ # MotionPlanning displays actually load -- default is a blank window.
+ <include file="$(find baxter_moveit_config)/launch/moveit_rviz.launch">
+  <arg name="config" value="true" />
+ </include>
 </launch>
